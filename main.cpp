@@ -40,7 +40,6 @@ void input(int ** mtx, size_t rows, size_t cols) {
   }
 }
 
-
 void output(int ** mtx, size_t rows, size_t cols) {
   for (size_t i = 0; i < rows; ++i) {
     std::cout << mtx[i][0];
@@ -49,6 +48,20 @@ void output(int ** mtx, size_t rows, size_t cols) {
     }
     std::cout << "\n";
   }
+}
+
+int ** convert(const int * t, size_t n, const size_t * lns, size_t rows) {
+  int ** table = new int * [rows];
+  size_t pos = 0;
+
+  for (size_t i = 0; i < rows; ++i) {
+    table[i] = new int[lns[i]];
+    for (size_t j = 0; j < lns[i]; ++j) {
+      table[i][j] = t[pos];
+      ++pos;
+    }
+}
+return table;
 }
 
 int main() {
@@ -78,6 +91,31 @@ int main() {
   output(mtx, r, c);
   // std::cout << mtx[0][0] << "\n";
   destroy(mtx, r);
+
+  int t[] = {5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 8};
+  size_t n = 12;
+  size_t lns[] = {4, 2, 5, 1};
+  size_t rows = 4;
+
+  int ** table = convert(t, n, lns, rows);
+  for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < lns[i]; ++j) {
+            std::cout << table[i][j] << ' ';
+        }
+        std::cout << '\n';
+  }
+
+  for (size_t i = 0; i < rows; ++i) {
+    delete[] table[i];
+  }
+
+  delete[] table;
+
+  return 0;
+
+
+
+
 }
 
 
